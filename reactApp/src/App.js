@@ -1,35 +1,18 @@
-import {useEffect} from 'react';
-import { useStateProvider } from './utils/stateProvider';
-import {reducerCases} from './utils/constants';
+import React from 'react'
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+
 import Login from './pages/Login';
-import Homepage from './pages/Homepage';
+import Profile from './pages/Profile';
 
 function App() {
-  const [token, dispatch] = useStateProvider()
-  useEffect(() => {
-    const hash = window.location.hash
-    if (hash) {
-      let token = hash.substring(1).split('&')[0].split('=')[1];
-      dispatch({ type: reducerCases.SET_TOKEN, token });
-    }
-  }, [token, dispatch]);
   return (
-    <div style={styles.container}>
-      {token ? <Homepage/> : <Login/>}
-    </div>
+  <Router>
+    <Routes>
+      <Route path="/callback" exact element={<Profile />} />
+      <Route path="/login" exact element={<Login />} />
+    </Routes>
+  </Router>
   )
 }
 
-const styles = {
-  container: {
-    backgroundColor: 'green',
-    height: '100vh',
-    width: '100vw',
-    display: 'flex',
-    flexDirection: 'col',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-}
-
-export default App;
+export default App

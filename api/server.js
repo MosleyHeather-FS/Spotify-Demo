@@ -9,7 +9,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 3000;
 const DATABASE_URL = process.env.DATABASE_URL;
 
 const spotifyRouter = require('./routes/spotifyRouter');
@@ -21,7 +21,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log("Database Connection Established"))
 
 app.use(express.json())
-app.use('/api/v1', spotifyRouter)
+app.use('/spotify/v1', spotifyRouter)
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`)
